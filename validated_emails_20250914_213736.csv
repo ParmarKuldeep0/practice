@@ -1,0 +1,2 @@
+email,name,signup_date,source,format_valid,domain_exists,is_disposable,processed_at,is_valid
+user@example.com,Sample User,2025-09-14,landing_page,True,True,False,2025-09-14T21:37:36.102778,True

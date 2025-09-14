@@ -1,0 +1,56 @@
+name: saas
+
+on:
+  schedule:
+    # Run email validator daily at 9 AM UTC (2:30 PM IST)
+    - cron: '0 9 * * *'
+    # Run social scraper every 6 hours
+    - cron: '0 */6 * * *'
+    # Run analytics report every Sunday at 9 AM UTC
+    - cron: '0 9 * * 0'
+  workflow_dispatch:
+    inputs:
+      script:
+        description: 'Choose the script to run'
+        required: true
+        default: all
+        type: choice
+        options:
+          - all
+          - pure_email_validator
+          - local_content_scraper
+          - local_analytics
+
+jobs:
+  run_automation:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python 3.9
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install --upgrade pip
+
+      - name: Run pure_email_validator.py
+        if: github.event.inputs.script == 'all' || github.event.inputs.script == 'pure_email_validator'
+        run: python scripts/pure_email_validator.py
+
+      - name: Run local_content_scraper.py
+        if: github.event.inputs.script == 'all' || github.event.inputs.script == 'local_content_scraper'
+        run: python scripts/local_content_scraper.py
+
+      - name: Run local_analytics.py
+        if: github.event.inputs.script == 'all' || github.event.inputs.script == 'local_analytics'
+        run: python scripts/local_analytics.py
+
+      - name: Upload validation report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: validation-report
+          path: validation_report_*.html

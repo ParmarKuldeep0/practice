@@ -1,0 +1,20 @@
+[
+  {
+    "email": "test1@gmail.com",
+    "validated_at": "2025-09-14T21:37:18.535792",
+    "status": "valid",
+    "source": "landing_page"
+  },
+  {
+    "email": "user@yahoo.com",
+    "validated_at": "2025-09-14T21:37:18.535792",
+    "status": "valid",
+    "source": "landing_page"
+  },
+  {
+    "email": "business@example.com",
+    "validated_at": "2025-09-14T21:37:18.535792",
+    "status": "valid",
+    "source": "landing_page"
+  }
+]
